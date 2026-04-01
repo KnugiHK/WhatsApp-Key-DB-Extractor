@@ -48,7 +48,7 @@ exit
 bin\adb.exe shell pm path com.whatsapp | bin\grep.exe package > tmp\wapath.txt
 bin\adb.exe shell "echo $EXTERNAL_STORAGE" > tmp\sdpath.txt
 bin\adb.exe shell dumpsys package com.whatsapp | bin\grep.exe versionName > tmp\wapver.txt
-bin\curl.exe -sI https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk | bin\grep.exe Content-Length > tmp\waplen.txt
+bin\wget.exe -qS --spider https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk | bin\grep.exe Content-Length > tmp\waplen.txt
 set /p apkflen=<tmp\waplen.txt
 set apkflen=%apkflen:Content-Length: =%
 set apkfurl=https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk
@@ -77,9 +77,9 @@ echo.
 if %versionName% gtr 2.11.431 (
 if not exist tmp\LegacyWhatsApp.apk (
 echo Downloading legacy WhatsApp 2.11.431 to local folder
-bin\curl.exe -o tmp\LegacyWhatsApp.apk %apkfurl%
+bin\wget.exe -O tmp\LegacyWhatsApp.apk %apkfurl%
 set exitcode=%ErrorLevel%
-if %exitcode% neq 0 (echo "[FATAL] Curl failed with %exitcode%." && exit %exitcode%)
+if %exitcode% neq 0 (echo "[FATAL] Wget failed with %exitcode%." && exit %exitcode%)
 ) else (
 echo Found legacy WhatsApp 2.11.431 in local folder
 )
@@ -207,7 +207,7 @@ echo Operation failed
 )
 if not exist tmp\%apkname% (
 echo Downloading WhatsApp %versionName% to local folder
-bin\curl.exe -o tmp\%apkname% http://www.cdn.whatsapp.net/android/%versionName%/WhatsApp.apk
+bin\wget.exe -O tmp\%apkname% http://www.cdn.whatsapp.net/android/%versionName%/WhatsApp.apk
 )
 if exist tmp\%apkname% (
 echo Restoring WhatsApp %versionName%

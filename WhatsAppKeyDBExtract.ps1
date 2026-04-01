@@ -44,7 +44,7 @@ $version = $version.Trim() -replace 'versionName='
 } Else {
 TerminateWithReason("WhatsApp is not installed on the target device")
 }
-$apkflen = Invoke-Expression "bin\curl.exe -sI https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk | bin\grep.exe Content-Length 2>&1"
+$apkflen = Invoke-Expression "bin\wget.exe -qS --spider https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk | bin\grep.exe Content-Length 2>&1"
 If ($apklen)
 {
 $apkflen = $apkflen.Trim() -replace 'Content-Length: '
@@ -58,10 +58,10 @@ If (Test-Path "tmp\LegacyWhatsApp.apk")
 "Found legacy WhatsApp 2.11.431 in local folder`r`n"
 } Else {
 "Downloading legacy WhatsApp 2.11.431 to local folder`r`n"
-Invoke-Expression "bin\curl.exe -o tmp\LegacyWhatsApp.apk $apkfurl"
+Invoke-Expression "bin\wget.exe -O tmp\LegacyWhatsApp.apk $apkfurl"
 ""
 if ($LASTEXITCODE -ne 0){
-"[FATAL] Curl failed with $LASTEXITCODE."
+"[FATAL] Wget failed with $LASTEXITCODE."
 exit $LASTEXITCODE
 }
 }
@@ -180,7 +180,7 @@ Remove-Item tmp\apps -recurse
 if (-Not (Test-Path  "tmp\$apkname"))
 {
 "Downloading WhatsApp $version to local folder`r`n"
-Invoke-Expression "bin\curl.exe -o tmp\$apkname http://www.cdn.whatsapp.net/android/$version/WhatsApp.apk"
+Invoke-Expression "bin\wget.exe -O tmp\$apkname http://www.cdn.whatsapp.net/android/$version/WhatsApp.apk"
 }
 "Restoring WhatsApp $version"
 If ($sdkver -ge 17)
