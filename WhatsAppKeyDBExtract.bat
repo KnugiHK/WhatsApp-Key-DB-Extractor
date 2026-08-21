@@ -114,7 +114,8 @@ bin\adb.exe backup -f tmp\whatsapp.ab com.whatsapp
 ) else (
 bin\adb.exe backup -f tmp\whatsapp.ab -noapk com.whatsapp
 )
-if exist tmp\whatsapp.ab (
+if exist tmp\whatsapp.ab (0768470786
+
 echo.
 set /p password="Please enter your backup password (leave blank for none) and press Enter: "
 echo.
