@@ -179,10 +179,24 @@ Remove-Item tmp\apps -recurse
 "Done`r`n"
 if (-Not (Test-Path  "tmp\$apkname"))
 {
-"Downloading WhatsApp $version to local folder`r`n"
-Invoke-Expression "bin\curl.exe -o tmp\$apkname http://www.cdn.whatsapp.net/android/$version/WhatsApp.apk"
+$curlExe = Join-Path $PSScriptRoot "bin\curl.exe"
+$pageHtml = & $curlExe -sL "https://www.whatsapp.com/download/android" | Out-String
+
+$match = [regex]::Match($pageHtml, 'href="(https://scontent\.whatsapp\.net/[^"]+\.apk[^"]*)"')
+$downloadUrl = $match.Groups[1].Value -replace '&amp;', '&'
+if (-not $downloadUrl)
+{
+    "Error: Could not extract the WhatsApp APK download URL.`r`n"
+    exit 1
 }
-"Restoring WhatsApp $version"
+$downloadUrl = $downloadUrl.Replace("&amp;", "&")
+& "bin\curl.exe" -L -o "tmp\$apkname" $downloadUrl
+"Restoring the latest WhatsApp"
+}
+else
+{
+    "Restoring WhatsApp $version"
+}
 If ($sdkver -ge 17)
 {
 Invoke-Expression "bin\adb.exe install -r -d tmp\$apkname"

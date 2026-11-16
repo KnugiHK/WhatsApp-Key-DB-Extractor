@@ -124,10 +124,20 @@ else
 echo -e "Operation failed"
 fi
 if [ ! -f tmp/$apkname ]; then
-echo -e "\nDownloading WhatsApp ${version/versionName=/} to local folder\n"
-curl -o tmp/$apkname http://www.cdn.whatsapp.net/android/${version/versionName=/}/WhatsApp.apk
+  echo -e "\nDownloading the latest WhatsApp to local folder\n"
+  download_url=$(curl -sL "https://www.whatsapp.com/download/android" | \
+    grep -oP 'href="\Khttps://scontent\.whatsapp\.net/[^"]+\.apk[^"]*' | \
+    head -n 1 | \
+    sed 's/&amp;/\&/g')
+if [ -z "$download_url" ]; then
+  echo "Error: Could not extract the WhatsApp APK download URL."
+  exit 1
 fi
+curl -L -o tmp/$apkname "$download_url"
+echo -e "\nRestoring the latest WhatsApp"
+else
 echo -e "\nRestoring WhatsApp ${version/versionName=/}"
+fi
 if [ $sdkver -ge 17 ]; then
 adb install -r -d tmp/$apkname
 else
