@@ -71,8 +71,7 @@ AUTHOR: TripCode
 MAINTAINER: KnugiHK  
 THANKS: dragomerlin for Android Backup Extractor and Abinash Bishoyi for being cool.  
 abe.jar by nelenkov and its contributors.  
-tar.exe, grep.exe, regex2.dll, libintl3.dll, libiconv2.dll by Free Software Foundation and its contributors.  
-pcre3.dll by University of Cambridge and its contributors.  
+tar.exe, libintl3.dll, libiconv2.dll by Free Software Foundation and its contributors.  
 curl.exe by Daniel Stenberg and its contributors.  
 adb.exe, AdbWinApi.dll, AdbWinUsbApi.dll by The Android Open Source Project and its contributors.  
 `SPDX-License-Identifier: Apache-2.0 OR GPL-3.0`
