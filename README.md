@@ -35,6 +35,7 @@ v5.1 - Added support for Crypt15.
 v5.2 - Fixed the link of legacy apk.  
 v5.3 - Added a pause for users accepting the permissions request.  
 v5.4 - Updated the binaries for ABE and CURL.  
+v5.5 - Updated binaries and drop support for bat version
 
 
 ## PREREQUISITES:
@@ -49,7 +50,7 @@ v5.4 - Updated the binaries for ABE and CURL.
 
 ## INSTRUCTIONS:
  1. Extract "WhatsApp-Key-DB-Extractor-master.zip" maintaining the directory structure.  
- 2. Click on "WhatsAppKeyDBExtract.bat" (Windows) or "WhatsAppKeyDBExtract.sh" (Mac OS X / Linux).  
+ 2. Click on "WhatsAppKeyDBExtract.ps1" (Windows) or "WhatsAppKeyDBExtract.sh" (Mac OS X / Linux).  
  3. Connect your device via USB, unlock your screen and wait for "Full backup" or the permission request screen to appear.  
  4. Enter your backup password or leave blank (if none set) and tap on "Back up my data".  
  5. Confirm backup password in your command console and then check your "extracted" folder.  
@@ -61,9 +62,7 @@ v5.4 - Updated the binaries for ABE and CURL.
      backup password that you PROVIDE when prompted to backup your data. Else it WILL fail!  
  3. Linux and Mac OS X users may need to set the script permissions as executable. Depending on the  
      adb permissions, you may also need to "sudo ./WhatsAppKeyDBExtract.sh" from your command console.  
- 4. If you're having issues with "WhatsAppKeyDBExtract.bat" then right click "WhatsAppKeyDBExtract.ps1"  
-     and select "Run with PowerShell". You may have to enter "y" at first run for execution policy.  
- 5. If you get an error saying "AES encryption not allowed" then you need to update your Oracle Java  
+ 4. If you get an error saying "AES encryption not allowed" then you need to update your Oracle Java  
     Cryptography Extension (JCE) to Unlimited Strength Jurisdiction Policy Files.  
 
 
