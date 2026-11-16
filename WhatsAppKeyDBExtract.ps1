@@ -31,20 +31,20 @@ If ($sdkver -le 13)
 {
 TerminateWithReason("Unsupported Android Version - this method only works on 4.0 or higher :/")
 }
-$apkpath = Invoke-Expression "bin\adb.exe shell pm path com.whatsapp | bin\grep.exe package 2>&1"
+$apkpath = (Invoke-Expression "bin\adb.exe shell pm path com.whatsapp 2>&1 | Select-String 'package'").Line
 If ($apkpath)
 {
 $apkpath = $apkpath.Trim() -replace 'package:'
 }
 $apkname = [System.IO.Path]::GetFileName($apkpath)
-$version = Invoke-Expression "bin\adb.exe shell dumpsys package com.whatsapp | bin\grep.exe versionName 2>&1"
+$version = (Invoke-Expression "bin\adb.exe shell dumpsys package com.whatsapp 2>&1 | Select-String 'versionName'").Line
 If ($version)
 {
 $version = $version.Trim() -replace 'versionName='
 } Else {
 TerminateWithReason("WhatsApp is not installed on the target device")
 }
-$apkflen = Invoke-Expression "bin\curl.exe -sI https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk | bin\grep.exe Content-Length 2>&1"
+$apkflen = (Invoke-Expression "bin\curl.exe -sI https://web.archive.org/web/20141111030303/http://www.whatsapp.com/android/current/WhatsApp.apk 2>&1 | Select-String 'Content-Length'").Line
 If ($apklen)
 {
 $apkflen = $apkflen.Trim() -replace 'Content-Length: '
